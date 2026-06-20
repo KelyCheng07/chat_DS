@@ -15,25 +15,95 @@ DeepSeek API 按 Token 计费，每轮对话把全部历史发过去很浪费。
 - `@关键词` 一键召回相关历史
 - 多会话独立隔离，互不干扰
 
-## 快速开始
+## 快速开始（从零开始）
+
+### 第一步：安装 Python
+
+本项目需要 **Python 3.10 或更高版本**。
+
+<details>
+<summary>点我展开 → 还不知道自己有没有 Python？怎么看版本？</summary>
+
+**Windows：**
+1. 按 `Win + R`，输入 `cmd` 回车
+2. 输入 `python --version` 回车
+3. 如果显示 `Python 3.10.x` 或更高 → 已安装，跳过这步
+4. 如果显示"不是内部命令" → 去 [python.org](https://python.org) 下载安装
+   - 下载时勾选 **"Add Python to PATH"**
+   - 装完重启 CMD，再输入 `python --version` 确认
+
+**macOS / Linux：** 一般自带了 Python 3，在终端输入 `python3 --version` 确认。
+</details>
+
+### 第二步：下载本项目
 
 ```bash
-# 1. 克隆
 git clone https://github.com/KelyCheng07/chat_DS.git
 cd chat_DS
+```
 
-# 2. 安装依赖
+> 如果提示 `git` 不是内部命令，先去 https://git-scm.com/download 下载安装 Git。
+>
+> 不想装 Git 也可以直接去 GitHub 页面点绿色「Code」→「Download ZIP」，解压后进 `chat_DS` 文件夹。
+
+### 第三步：安装依赖包
+
+```bash
 pip install -r requirements.txt
+```
 
-# 3. 配置 API Key
+<details>
+<summary>点我展开 → 还不知道 pip 是什么？装完 Python 还是报错？</summary>
+
+**`pip` 是 Python 的「应用商店」**，用来一键安装别人写好的代码库。
+
+如果提示 `pip` 不是内部命令：
+
+- Windows：`python -m pip install -r requirements.txt`
+- macOS / Linux：`pip3 install -r requirements.txt`
+
+如果你在中国大陆，下载可能很慢，可以加国内镜像加速：
+
+```bash
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+**它会安装什么？**
+
+| 包名 | 用途 |
+|------|------|
+| `openai` | 调用 DeepSeek 的 API（和 AI 对话的核心） |
+| `rich` | 让终端显示彩色文字和代码高亮 |
+| `python-dotenv` | 读取 `.env` 配置文件 |
+| `numpy` | 数学计算，用于语义搜索 |
+| `tiktoken` | 精确计算用了多少 Token（不装也行） |
+| `sentence-transformers` | 让 @关键词 召回更准确（不装也行） |
+
+> 全部装完大约 1~3 分钟，取决于网速。后面两个不装也能正常使用。
+</details>
+
+### 第四步：配置 API Key
+
+```bash
+# 把 .env.example 复制一份，改名为 .env
 cp .env.example .env
-# 编辑 .env，填入你的 DEEPSEEK_API_KEY
+```
 
-# 4. 启动
+用记事本打开 `.env`，找到这一行：
+
+```ini
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+把 `sk-xxxxxxxx...` 替换成你在 [platform.deepseek.com/api_keys](https://platform.deepseek.com/api_keys) 申请的真正 Key。
+
+### 第五步：启动
+
+```bash
 python main.py
 ```
 
-第一次运行会自动创建「默认」会话。输入 `!help` 查看所有命令。
+第一次运行后会自动创建「默认」会话。输入 `!help` 查看所有命令。
 
 ## 功能概览
 
@@ -93,8 +163,9 @@ chat_deepseek/
 
 ## 环境要求
 
-- Python 3.10+
-- DeepSeek API Key（[获取地址](https://platform.deepseek.com/api_keys)）
+- **Python 3.10+**（[下载](https://python.org)）
+- **DeepSeek API Key**（[免费注册获取](https://platform.deepseek.com/api_keys)，充值后可用）
+- 用到的所有 Python 库（`openai`、`rich` 等）—— `pip install -r requirements.txt` 一键安装
 
 ## 文档
 
